@@ -2,12 +2,14 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
+#include "cpu/reg.h"
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+extern CPU_state cpu;
+
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -36,9 +38,21 @@ static int cmd_q(char *args) {
   return -1;
 }
 static int cmd_si(char *args){
-	return 0;
+//    char *arg=strtok(NULL," ");
+//    int i,num=0;
+        
+    return 0;
 };
 static int cmd_info(char *args){
+    printf("eax is %x",cpu.eax);
+    printf("ecx is %x",cpu.ecx);
+    printf("edx is %x",cpu.edx);
+    printf("ebx is %x",cpu.ebx);
+    printf("esp is %x",cpu.esp);
+    printf("ebp is %x",cpu.ebp);
+    printf("esi is %x",cpu.esi);
+    printf("edi is %x",cpu.edi);
+                
     return 0;
 }
 static int cmd_x(char *args){
@@ -55,9 +69,9 @@ static struct {
     { "help", "Display informations about all supported commands", cmd_help },
     { "c", "Continue the execution of the program", cmd_c },
     { "q", "Exit NEMU", cmd_q },
-    {"si [N]"," Single-step execution",cmd_si},
-    {"info SUBCMD","Print program status",cmd_info},
-    {"x N EXPR","Scanning memory",cmd_x},
+    {"si"," Single-step execution",cmd_si},
+    {"info","Print program status",cmd_info},
+    {"x","Scanning memory",cmd_x},
   /* TODO: Add more commands */
 
 };
