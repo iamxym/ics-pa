@@ -44,14 +44,14 @@ static int cmd_si(char *args){
     return 0;
 };
 static int cmd_info(char *args){
-    printf("eax is %x",cpu.eax);
-    printf("ecx is %x",cpu.ecx);
-    printf("edx is %x",cpu.edx);
-    printf("ebx is %x",cpu.ebx);
-    printf("esp is %x",cpu.esp);
-    printf("ebp is %x",cpu.ebp);
-    printf("esi is %x",cpu.esi);
-    printf("edi is %x",cpu.edi);
+    printf("eax is %x\n",cpu.eax);
+    printf("ecx is %x\n",cpu.ecx);
+    printf("edx is %x\n",cpu.edx);
+    printf("ebx is %x\n",cpu.ebx);
+    printf("esp is %x\n",cpu.esp);
+    printf("ebp is %x\n",cpu.ebp);
+    printf("esi is %x\n",cpu.esi);
+    printf("edi is %x\n",cpu.edi);
                 
     return 0;
 }
