@@ -84,7 +84,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
+ printf("%d \n",  rules[0].token_type);  
         printf("%d \n",  rules[1].token_type);
          printf("%d \n",  rules[2].token_type); 
           printf("%d \n",  rules[3].token_type);  
