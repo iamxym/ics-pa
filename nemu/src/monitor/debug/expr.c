@@ -88,13 +88,13 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
         case 258 :tokens[nr_token].type = 258 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
         case 259 :tokens[nr_token].type = 259 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
-        case 260 :tokens[nr_token].type = 260 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);                  
-
+        case 260 :tokens[nr_token].type = 260 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);       
         default: TODO();
         }
 
         break;
-      }
+        }
+      printf("%d",nr_token);
     }
 
     if (i == NR_REGEX) {
@@ -111,7 +111,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  else make_token(e);
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
 

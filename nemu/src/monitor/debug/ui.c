@@ -93,9 +93,9 @@ static int cmd_x(char *args){
 static int cmd_p(char *args){
     char *arg = strtok(args," ");
     printf("%s\n", arg);
+     
     return 0;
 }
-
 static int cmd_help(char *args);
 
 static struct {
