@@ -78,9 +78,11 @@ static int cmd_x(char *args){
     char *arg = strtok(args," ");
     int  n=atoi(arg);
     printf("%d\n",n);
-    int ad =atoi(strtok(NULL," "));
-   // int ad=atoi(arg);
-    printf("%#X/n",ad);
+    
+    int ad =htobe16(strtok(NULL," "));
+    
+    // int ad=atoi(arg);
+    printf("%#X\n",ad);
     return 0;
 }
 
