@@ -104,13 +104,11 @@ static bool make_token(char *e) {
         case 258 :tokens[nr_token].type = 258 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
         case 259 :tokens[nr_token].type = 6 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
         case 260 :tokens[nr_token].type = 7 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        
         default: TODO();
-        }
-              
+        }       
         break;
         }
-       
+      nr_token+=1; 
      // printf("%d",nr_token);
     }
     
