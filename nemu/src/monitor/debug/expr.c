@@ -127,8 +127,11 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  
-  /* TODO: Insert codes to evaluate the expression. */
+  for(int i = 0 ;i<nr_token;i++)
+  {
+    printf("%s",tokens[i].str);
+  }
+  /* TODO: Insert cides ti evaluate the expression. */
   TODO();
 
   return 0;
