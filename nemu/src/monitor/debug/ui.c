@@ -74,15 +74,14 @@ static int cmd_info(char *args){
     return 0;
 }
 static int cmd_x(char *args){
-    
+    char* str;
     char *arg = strtok(args," ");
     int  n=atoi(arg);
     printf("%d\n",n);
-    
-    int ad =htobe16(strtok(NULL," "));
-    
+   // int ad =htobe16(strtok(NULL," "));
+    long ad =strtol( strtok(NULL," "),&str,16);
     // int ad=atoi(arg);
-    printf("%#X\n",ad);
+    printf("%#lX\n",ad);
     return 0;
 }
 
