@@ -40,7 +40,13 @@ static int cmd_q(char *args) {
 static int cmd_si(char *args){
 //    char *arg=strtok(NULL," ");
 //    int i,num=0;
-        
+//
+    char *str = rl_gets();
+    char *arg = strtok(str," ");    
+   // int num =integers(*arg[1]);
+   // *arg = strtok(NULL," ");
+    int num = atoi(arg);
+    cpu_exec(num);
     return 0;
 };
 static int cmd_info(char *args){
@@ -52,7 +58,18 @@ static int cmd_info(char *args){
     printf("ebp is %x\n",cpu.ebp);
     printf("esi is %x\n",cpu.esi);
     printf("edi is %x\n",cpu.edi);
-                
+    printf("---------------------------");
+    /*
+    printf("eax is %x\n",cpu_exec->eax);
+    printf("ecx is %x\n",cpu_exec->ecx);
+    printf("edx is %x\n",cpu_exec->edx);
+    printf("ebx is %x\n",cpu_exec->ebx);
+    printf("esp is %x\n",cpu_exec->esp);
+    printf("ebp is %x\n",cpu_exec->ebp);
+    printf("esi is %x\n",cpu_exec->esi);
+    printf("edi is %x\n",cpu_exec->edi);
+*/
+
     return 0;
 }
 static int cmd_x(char *args){
