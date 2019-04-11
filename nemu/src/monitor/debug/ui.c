@@ -90,7 +90,12 @@ static int cmd_x(char *args){
     return 0;
 }
 
+static int cmd_p(char *args){
 
+    char *arg = strtok(args, " ");
+    printf("%s" , arg);
+    return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -104,6 +109,7 @@ static struct {
     {"si"," Single-step execution",cmd_si},
     {"info","Print program status",cmd_info},
     {"x","Scanning memory",cmd_x},
+    {"p","表达式求值",cmd_p}
   /* TODO: Add more commands */
 
 };
