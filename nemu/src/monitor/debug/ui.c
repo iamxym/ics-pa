@@ -45,6 +45,7 @@ static int cmd_si(char *args){
     char *arg = strtok(str," ");    
    // int num =integers(*arg[1]);
    // *arg = strtok(NULL," ");
+    printf("%s\n",arg);
     int num = atoi(arg);
     cpu_exec(num);
     printf("OK");
