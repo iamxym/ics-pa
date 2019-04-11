@@ -1,6 +1,5 @@
 STUID = 20190405
-STUNAME = DuskwatcherLT
-
+STUNAME = Tong Liu
 # DO NOT modify the following code!!!
 
 GITFLAGS = -q --author='tracer-ics2018 <tracer@njuics.org>' --no-verify --allow-empty
