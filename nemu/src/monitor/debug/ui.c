@@ -74,14 +74,17 @@ static int cmd_info(char *args){
     return 0;
 }
 static int cmd_x(char *args){
+    //获取内存起始地址和扫描长度。
     char* str;
     char *arg = strtok(args," ");
     int  n=atoi(arg);
     printf("%d\n",n);
-   // int ad =htobe16(strtok(NULL," "));
     long ad =strtol( strtok(NULL," "),&str,16);
-    // int ad=atoi(arg);
     printf("%#lX\n",ad);
+    //进行内存扫描,每次四个字节;
+    for(int i = 0;i < n;i++){
+        vaddr_read(ad+=i*4,4);
+    }
     return 0;
 }
 
