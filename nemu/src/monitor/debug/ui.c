@@ -84,6 +84,7 @@ static int cmd_x(char *args){
     //进行内存扫描,每次四个字节;
     for(int i = 0;i < n;i++){
         vaddr_read(ad+=i*4,4);
+        printf("--");
     }
     return 0;
 }
