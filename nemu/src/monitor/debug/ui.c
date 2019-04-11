@@ -77,10 +77,10 @@ static int cmd_x(char *args){
     
     char *arg = strtok(args," ");
     int  n=atoi(arg);
-    printf("%d/n",n);
-   // *arg=strtok(NULL," ");
+    printf("%d\n",n);
+    int ad =atoi(strtok(NULL," "));
    // int ad=atoi(arg);
-   // printf("%#X/n",ad);
+    printf("%#X/n",ad);
     return 0;
 }
 
