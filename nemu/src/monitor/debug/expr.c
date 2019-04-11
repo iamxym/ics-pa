@@ -28,7 +28,7 @@ static struct rule {
   {"\\*", '*'},
   {"\\/", '/'},
  // {"-?[1-9]\\d*", TK_NUM10},
-  {"-?[1-9]\\d*|0$", TK_NUM10},
+  {"-?[1-9]+", TK_NUM10},
   {"\\(", TK_LEFT},
   {"\\)",TK_RIGHT},
   {"==", TK_EQ}         // equal
@@ -126,7 +126,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  printf("%d",nr_token);
+  printf("%d\n",nr_token);
   for(int i = 0 ;i<nr_token;i++)
   {
     printf("%s\n",tokens[i].str);
