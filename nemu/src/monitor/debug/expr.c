@@ -86,6 +86,7 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+        /*
         case 1 :tokens[nr_token].type = 1 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
         case 2 :tokens[nr_token].type = 2 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
         case 3 :tokens[nr_token].type = 3 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);       
@@ -93,6 +94,7 @@ static bool make_token(char *e) {
         case 5 :tokens[nr_token].type = 5 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
         case 6 :tokens[nr_token].type = 6 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len); 
         case 7 :tokens[nr_token].type = 7 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
+        */
         default: TODO();
         }
 
