@@ -1,5 +1,5 @@
 #include "nemu.h"
-
+#include "string.h"
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ =257, TK_NUM10 = 258 , TK_LEFT = 259 , TK_RIGHT = 260
 
   /* TODO: Add more token types */
 
@@ -24,6 +24,12 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
+  {"\\-", '-'},
+  {"\\*", '*'},
+  {"\\/", '/'},
+  {"-?[1-9]\\d*", TK_NUM10},
+  {"\\(", TK_LEFT},
+  {"\\)",TK_RIGHT},
   {"==", TK_EQ}         // equal
 };
 
@@ -80,7 +86,11 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+        case 258 :tokens[nr_token].type = 258 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
+        case 259 :tokens[nr_token].type = 259 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);
+        case 260 :tokens[nr_token].type = 260 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);                  
+
+        default: TODO();
         }
 
         break;
