@@ -83,7 +83,7 @@ static int cmd_x(char *args){
     printf("%#lX\n",ad);
     //进行内存扫描,每次四个字节;
     for(int i = 0;i < n;i++){
-       printf("%x\n", vaddr_read(ad+=i,4));
+       printf("%#xX\n", vaddr_read(ad+=i,4));
               
     }
 
