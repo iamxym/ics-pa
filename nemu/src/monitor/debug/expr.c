@@ -109,7 +109,7 @@ static bool make_token(char *e) {
         nr_token+=1;
         break;
         }
-      printf("%d",nr_token);
+     // printf("%d",nr_token);
     }
 
     if (i == NR_REGEX) {
@@ -122,13 +122,12 @@ static bool make_token(char *e) {
 }
 
 uint32_t expr(char *e, bool *success) {
- /*
+ 
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
-  */
-    make_token(e);
+  
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
 
