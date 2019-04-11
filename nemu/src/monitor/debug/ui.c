@@ -38,13 +38,12 @@ static int cmd_q(char *args) {
   return -1;
 }
 static int cmd_si(char *args){
-//    char *arg=strtok(NULL," ");
-//    int i,num=0;
-//
-    char *str = rl_gets();
-    char *arg = strtok(str," ");    
-   // int num =integers(*arg[1]);
-   // *arg = strtok(NULL," ");
+
+//  first 
+//    char *str = rl_gets();
+//    char *arg = strtok(str," ");    
+    char *arg = strtok(args," ");
+    arg = strtok(NULL," ");
     printf("%s\n",arg);
     int num = atoi(arg);
     cpu_exec(num);
