@@ -27,7 +27,8 @@ static struct rule {
   {"\\-", '-'},
   {"\\*", '*'},
   {"\\/", '/'},
-  {"-?[1-9]\\d*", TK_NUM10},
+ // {"-?[1-9]\\d*", TK_NUM10},
+  {"/^-?[1-9]+[0-9]*$/", TK_NUM10},
   {"\\(", TK_LEFT},
   {"\\)",TK_RIGHT},
   {"==", TK_EQ}         // equal
@@ -106,7 +107,7 @@ static bool make_token(char *e) {
         
         default: TODO();
         }
-      
+              
         break;
         }
        
