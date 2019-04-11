@@ -84,23 +84,25 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
- printf("%d \n",  rules[0].token_type);  
+        /*
+        printf("%d \n",  rules[0].token_type);  
         printf("%d \n",  rules[1].token_type);
-         printf("%d \n",  rules[2].token_type); 
-          printf("%d \n",  rules[3].token_type);  
-           printf("%d \n",  rules[4].token_type);  
-            printf("%d \n",  rules[5].token_type);  
-             printf("%d \n",  rules[6].token_type);  
-              printf("%d \n",  rules[7].token_type);  
+        printf("%d \n",  rules[2].token_type); 
+        printf("%d \n",  rules[3].token_type);  
+        printf("%d \n",  rules[4].token_type);  
+        printf("%d \n",  rules[5].token_type);  
+        printf("%d \n",  rules[6].token_type);  
+        printf("%d \n",  rules[7].token_type);  
+        */
         switch (rules[i].token_type) {
         
-        case 1 :tokens[nr_token].type = 1 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 2 :tokens[nr_token].type = 2 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 3 :tokens[nr_token].type = 3 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;       
-        case 4 :tokens[nr_token].type = 4 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 42 :tokens[nr_token].type = 1 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 43 :tokens[nr_token].type = 2 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 45 :tokens[nr_token].type = 3 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;       
+        case 47 :tokens[nr_token].type = 4 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
         case 258 :tokens[nr_token].type = 258 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 6 :tokens[nr_token].type = 6 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 7 :tokens[nr_token].type = 7 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 259 :tokens[nr_token].type = 6 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 260 :tokens[nr_token].type = 7 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
         
         default: TODO();
         }
