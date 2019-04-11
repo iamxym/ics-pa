@@ -91,10 +91,9 @@ static int cmd_x(char *args){
 }
 
 static int cmd_p(char *args){
-    bool *succ = 0 ;
     char *arg = strtok(args," ");
     printf("%s\n", arg);
-    expr(arg,succ);     
+ //   expr(arg,succ);     
     return 0;
 }
 static int cmd_help(char *args);
