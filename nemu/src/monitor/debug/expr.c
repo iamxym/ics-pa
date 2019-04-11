@@ -106,7 +106,7 @@ static bool make_token(char *e) {
         
         default: TODO();
         }
-
+        nr_token+=1;
         break;
         }
       printf("%d",nr_token);
