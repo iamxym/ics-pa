@@ -85,7 +85,13 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        printf("%d  %d", i  , rules[i].token_type);
+        printf("%d \n",  rules[1].token_type);
+         printf("%d \n",  rules[2].token_type); 
+          printf("%d \n",  rules[3].token_type);  
+           printf("%d \n",  rules[4].token_type);  
+            printf("%d \n",  rules[5].token_type);  
+             printf("%d \n",  rules[6].token_type);  
+              printf("%d \n",  rules[7].token_type);  
         switch (rules[i].token_type) {
         
         case 1 :tokens[nr_token].type = 1 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
