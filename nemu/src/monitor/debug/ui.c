@@ -53,36 +53,23 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
     char *arg = strtok(args," ");
     printf("%s\n",arg);
+    //cpu info
     if (strcmp(arg,"r")==0){
         printf("eax is %x\n",cpu.eax);
-   
         printf("ecx is %x\n",cpu.ecx);
-   
         printf("edx is %x\n",cpu.edx);
-   
         printf("ebx is %x\n",cpu.ebx);
-   
         printf("esp is %x\n",cpu.esp);
-    
         printf("ebp is %x\n",cpu.ebp); 
-   
         printf("esi is %x\n",cpu.esi);
-   
         printf("edi is %x\n",cpu.edi);
-   
-        printf("---------------------------");
+        printf("---------------------------\n");
     }
-    /*
-    printf("eax is %x\n",cpu_exec->eax);
-    printf("ecx is %x\n",cpu_exec->ecx);
-    printf("edx is %x\n",cpu_exec->edx);
-    printf("ebx is %x\n",cpu_exec->ebx);
-    printf("esp is %x\n",cpu_exec->esp);
-    printf("ebp is %x\n",cpu_exec->ebp);
-    printf("esi is %x\n",cpu_exec->esi);
-    printf("edi is %x\n",cpu_exec->edi);
-*/
+    else if(strcmp(arg,"w"))
+    {
 
+    }
+   
     return 0;
 }
 static int cmd_x(char *args){
