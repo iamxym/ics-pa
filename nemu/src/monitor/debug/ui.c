@@ -95,7 +95,7 @@ static int cmd_p(char *args){
     bool suc = 1;
     bool *su = &suc;
     char *arg = strtok(args, " ");
-    printf("%s\n %ld\n" , arg, strlen(arg));
+   // printf("%s\n %ld\n" , arg, strlen(arg));
     expr(arg,su);
     return 0;
 }
