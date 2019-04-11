@@ -53,7 +53,7 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
     char *arg = strtok(args," ");
     printf("%s\n",arg);
-   // if (arg.equal("r")){
+    if (strcmp(arg,"r")==0){
         printf("eax is %x\n",cpu.eax);
    
         printf("ecx is %x\n",cpu.ecx);
@@ -71,7 +71,7 @@ static int cmd_info(char *args){
         printf("edi is %x\n",cpu.edi);
    
         printf("---------------------------");
-   // }
+    }
     /*
     printf("eax is %x\n",cpu_exec->eax);
     printf("ecx is %x\n",cpu_exec->ecx);
