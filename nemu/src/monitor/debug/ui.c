@@ -82,7 +82,7 @@ static int cmd_x(char *args){
     long ad =strtol( strtok(NULL," "),&str,16);
    // printf("%#lX\n",ad);
     //进行内存扫描,每次四个字节;
-    for(int i = 0;i <= n;i++){
+    for(int i = 0;i < n;i++){
         
         printf("%#xX\n", vaddr_read(ad+=i,4));       
     }
