@@ -129,7 +129,7 @@ uint32_t expr(char *e, bool *success) {
   }
   for(int i = 0 ;i<nr_token;i++)
   {
-    printf("%s",tokens[i].str);
+    printf("%s\n",tokens[i].str);
   }
   /* TODO: Insert cides ti evaluate the expression. */
   TODO();
