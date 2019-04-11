@@ -126,7 +126,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  else make_token(e);
+  
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
 
