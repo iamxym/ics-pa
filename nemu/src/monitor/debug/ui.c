@@ -43,6 +43,7 @@ static int cmd_si(char *args){
 //    char *str = rl_gets();
 //    char *arg = strtok(str," ");    
     char *arg = strtok(args," ");
+    printf("111");
     arg = strtok(NULL," ");
     printf("%s\n",arg);
     int num = atoi(arg);
