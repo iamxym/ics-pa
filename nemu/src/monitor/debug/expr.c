@@ -124,7 +124,7 @@ static bool make_token(char *e) {
 //p = head q = end
 
 bool check_parentheses(int p ,int q){
-    printf("--------------\n");
+   // printf("--------------\n");
     int i,tag = 0;
     if(tokens[p].type != TK_LEFT || tokens[q].type != TK_RIGHT) return false; //首尾没有()则为false
     for(i = p ; i < q ; i ++){
