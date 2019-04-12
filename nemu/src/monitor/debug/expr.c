@@ -81,7 +81,7 @@ static bool make_token(char *e) {
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
-         * to record the token in the array `tokens'. For certain types
+         * to record the token in the array `tokens'. or certain types
          * of tokens, some extra actions should be performed.
          */
         /*
@@ -96,13 +96,13 @@ static bool make_token(char *e) {
         */
         switch (rules[i].token_type) {
         
-        case 42 :tokens[nr_token].type = 1 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 43 :tokens[nr_token].type = 2 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 45 :tokens[nr_token].type = 3 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;       
-        case 47 :tokens[nr_token].type = 4 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 42 :tokens[nr_token].type = 42 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 43 :tokens[nr_token].type = 43 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 45 :tokens[nr_token].type = 45 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;       
+        case 47 :tokens[nr_token].type = 47 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
         case 258 :tokens[nr_token].type = 258 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 259 :tokens[nr_token].type = 6 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 260 :tokens[nr_token].type = 7 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 259 :tokens[nr_token].type = 259 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case 260 :tokens[nr_token].type = 260 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
         default: TODO();
         }
         nr_token+=1;
@@ -136,9 +136,3 @@ uint32_t expr(char *e, bool *success) {
 
   return 0;
 }
-/*
-uint32_t expr(char *e){
-    make_token(e);
-    return 0;
-}
-*/
