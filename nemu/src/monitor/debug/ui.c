@@ -75,16 +75,42 @@ static int cmd_info(char *args){
 }
 static int cmd_x(char *args){
     //获取内存起始地址和扫描长度。
-    char* str;
+    if(args == NULL){
+        printf("too few arguments! \n");                                                                       
+        return 1;
+    }
+    
+    char *EXPR;
     char *arg = strtok(args," ");
-    int  n=atoi(arg);
-    printf("%d\n",n);
-    long ad =strtol( strtok(NULL," "),&str,16);
+    if(arg == NULL){
+        printf("too few arguments! \n");
+        return 1;
+    }
+    int  n = atoi(arg);
+    EXPR = strtok(NULL," ");
+    if(EXPR == NULL){
+        printf("too few arguments! \n");
+        return 1;
+    }
+    if(strtok(NULL," ")!=NULL){
+        printf("too many arguments! \n");
+        return 1;
+    }
+    bool success = true;
+    vaddr_t addr = expr(EXPR,&success);
+    if (success!=true){
+        printf("ERRO!!\n");
+        return 1;
+    }
    // printf("%#lX\n",ad);
     //进行内存扫描,每次四个字节;
-    for(int i = 0;i < n;i++){
-        
-        printf("%#x\n", vaddr_read(ad+=i,4));       
+    for(int i = 0 ; i < n ; i++){
+        uint32_t data = vaddr_read(addr,4);
+        printf("0x%08d  " , addr + i * 4 );
+        for(int j =0 ; j < 4 ; j++){
+            printf("0x%02d " , data & 0xff);
+            data = data >> 8 ;
+        }
     }
 
     return 0;
