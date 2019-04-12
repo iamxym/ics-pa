@@ -80,14 +80,13 @@ static int cmd_x(char *args){
         return 1;
     }
     
-    char *EXPR;
     char *arg = strtok(args," ");
     if(arg == NULL){
         printf("too few arguments! \n");
         return 1;
     }
     int  n = atoi(arg);
-    EXPR = strtok(NULL," ");
+    char *EXPR = strtok(NULL," ");
     if(EXPR == NULL){
         printf("too few arguments! \n");
         return 1;
@@ -97,7 +96,7 @@ static int cmd_x(char *args){
         return 1;
     }
     bool success = true;
-    vaddr_t addr = expr(EXPR,&success);
+vaddr_t addr = expr(EXPR,&success);
     if (success!=true){
         printf("ERRO!!\n");
         return 1;
