@@ -137,7 +137,7 @@ bool check_parentheses(int p ,int q){
 }
 //判断运算符优先级，数字越小，优先级越高。
 int pir(int tpye){
-    int re = 256;
+    int re = -1;
     switch(tpye){
     case '+': re = 4 ; break;
     case '-': re = 4 ; break;
