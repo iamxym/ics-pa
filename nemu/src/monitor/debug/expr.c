@@ -216,12 +216,12 @@ uint32_t expr(char *e, bool *success) {
       *success = true;                                                                                                 
       return eval( 0 , nr_token - 1 );                                                                                  
   }  
-  /*//tokens匹配测试
+  //tokens匹配测试
   printf("%d\n",nr_token);
   for(int i = 0 ;i<nr_token;i++)
   {
     printf("%s\n",tokens[i].str);
-  }*/
+  }
   /* TODO: Insert cides ti evaluate the expression. */
   TODO();
   return 0;
