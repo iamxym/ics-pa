@@ -135,10 +135,23 @@ bool check_parentheses(int p ,int q){
     if( tag != 0 ) return false;
     return true;
 }
+//判断运算符优先级，数字越小，优先级越高。
+int pir(int tpye){
+    int re = 256;
+    switch(tpye){
+    case '+': re = 4 ; break;
+    case '-': re = 4 ; break;
+    case '*': re = 3 ; break;
+    case '/': re = 3 ; break;
+    default : break;
+    }
+    return re;
+}
 
 int dominant_operator(int p , int q){
 
     int i ,dom = p, left_n = 0;
+    int pr = 256 ;
     for(i = p ; i <= q ; i++){
         if(tokens[i].type == TK_LEFT){
             left_n += 1;
@@ -153,8 +166,10 @@ int dominant_operator(int p , int q){
             if(i > q)break;
         }
         if(tokens[i].type == TK_NUM10) continue;
-        else dom = i;
-
+        else if(pir(tokens[i].type ) < pr){
+            pr = pir(tokens[i].type);
+            dom = i;
+        }
     }
     return dom;
 }
