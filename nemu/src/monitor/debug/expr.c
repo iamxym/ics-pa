@@ -171,7 +171,7 @@ int dominant_operator(int p , int q){
             dom = i;
         }
     }
-    
+    printf("%d\n",left_n);
     return dom;
 }
 
