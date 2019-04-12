@@ -138,7 +138,7 @@ bool check_parentheses(int p ,int q){
 
 int dominant_operator(int p , int q){
 
-    int i ,dom = 0, left_n = 0;
+    int i ,dom = p, left_n = 0;
     for(i = p ; i <= q ; i++){
         if(tokens[i].type == TK_LEFT){
             left_n += 1;
