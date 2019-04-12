@@ -165,12 +165,13 @@ int dominant_operator(int p , int q){
             }
             if(i > q)break;
         }
-        if(tokens[i].type == TK_NUM10) continue;
+        else if(tokens[i].type == TK_NUM10) continue;
         else if(pir(tokens[i].type ) > pr){
             pr = pir(tokens[i].type);
             dom = i;
         }
     }
+    
     return dom;
 }
 
