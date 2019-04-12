@@ -107,7 +107,7 @@ static int cmd_x(char *args){
    // printf("%#lX\n",ad);
     //进行内存扫描,每次四个字节;
     for(int i = 0 ; i < n ; i++){
-        uint32_t data = vaddr_read(addr,4);
+        uint32_t data = vaddr_read(addr + i * 4,4);
         printf("0x%08x  " , addr + i * 4 );
         for(int j =0 ; j < 4 ; j++){
             printf("0x%02x " , data & 0xff);
