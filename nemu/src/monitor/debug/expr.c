@@ -151,7 +151,7 @@ int pir(int tpye){
 int dominant_operator(int p , int q){
 
     int i ,dom = p, left_n = 0;
-    int pr = 256 ;
+    int pr = -1 ;
     for(i = p ; i <= q ; i++){
         if(tokens[i].type == TK_LEFT){
             left_n += 1;
@@ -166,7 +166,7 @@ int dominant_operator(int p , int q){
             if(i > q)break;
         }
         if(tokens[i].type == TK_NUM10) continue;
-        else if(pir(tokens[i].type ) < pr){
+        else if(pir(tokens[i].type ) > pr){
             pr = pir(tokens[i].type);
             dom = i;
         }
