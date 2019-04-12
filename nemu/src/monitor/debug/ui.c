@@ -45,7 +45,11 @@ static int cmd_si(char *args){
 //    char *arg = strtok(str," ");    
     
     char *arg = strtok(args," ");
-    printf("%s\n",arg);
+   // printf("%s\n",arg);
+    if(arg == NULL){
+        printf("too few arguments.\n");
+        return 1;
+    }
     int num = atoi(arg);
     cpu_exec(num);
     printf("OK");
@@ -120,12 +124,11 @@ static int cmd_x(char *args){
 }
 
 static int cmd_p(char *args){
-
-    bool suc = 1;
-    bool *su = &suc;
+   
+    bool su = true;
     char *arg = strtok(args, " ");
    // printf("%s\n %ld\n" , arg, strlen(arg));
-    expr(arg,su);
+    expr(arg,&su);
     return 0;
 }
 static int cmd_help(char *args);

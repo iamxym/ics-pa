@@ -5,7 +5,7 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
+#include "stdlib.h"
 enum {
   TK_NOTYPE = 256, TK_EQ =257, TK_NUM10 = 258 , TK_LEFT = 259 , TK_RIGHT = 260
 
@@ -96,13 +96,13 @@ static bool make_token(char *e) {
         */
         switch (rules[i].token_type) {
         
-        case 42 :tokens[nr_token].type = 42 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 43 :tokens[nr_token].type = 43 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 45 :tokens[nr_token].type = 45 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;       
-        case 47 :tokens[nr_token].type = 47 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 258 :tokens[nr_token].type = 258 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 259 :tokens[nr_token].type = 259 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
-        case 260 :tokens[nr_token].type = 260 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);break;
+        case '+' :tokens[nr_token].type = '+' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case '-' :tokens[nr_token].type = '-' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case '*' :tokens[nr_token].type = '*' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;       
+        case '/' :tokens[nr_token].type = '/' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case TK_LEFT :tokens[nr_token].type = TK_LEFT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case TK_RIGHT :tokens[nr_token].type = TK_RIGHT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case TK_NUM10 :tokens[nr_token].type = TK_NUM10 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         default: TODO();
         }
         nr_token+=1;
@@ -120,19 +120,109 @@ static bool make_token(char *e) {
   return true;
 }
 
+
+//p = head q = end
+
+bool check_parentheses(int p ,int q){
+
+    int i,tag = 0;
+    if(tokens[p].type != TK_LEFT || tokens[q].type != TK_RIGHT) return false; //首尾没有()则为false
+    for(i = p ; i < q ; i ++){
+        if(tokens[i].type == TK_LEFT) tag++;
+        else if(tokens[i].type == TK_RIGHT) tag--;
+        if(tag == 0 && i < q) return false ;  //(3+4)*(5+3) 返回false
+    }
+    if( tag != 0 ) return false;
+    return true;
+}
+
+int dominant_operator(int p , int q){
+
+    int i ,dom = 0, left_n = 0;
+    for(i = p ; i <= q ; i++){
+        if(tokens[i].type == TK_LEFT){
+            left_n += 1;
+            i++;
+            while(1){
+                if(tokens[i].type == TK_LEFT) left_n += 1;
+                else if(tokens[i].type == TK_RIGHT) left_n --;
+                i++;
+                if(left_n == 0)
+                    break;
+            }
+            if(i > q)break;
+        }
+        if(tokens[i].type == TK_NUM10) continue;
+        else dom = i;
+
+    }
+    return dom;
+}
+
+//递归函数
+uint32_t eval(int p ,int  q) {
+    int op,val1,val2;
+    if (p > q) {
+            /* Bad expression */
+          printf("Bad expressopn ! \n");
+    }
+    else if (p == q) {
+            /* Single token.
+             *      * For now this token should be a number.
+             *           * Return the value of the number.
+             *              * 2019-4-2 只考虑NUM10
+             *                   */
+        
+        int type = tokens[p].type;
+        u_int32_t t = 0;
+        switch(type){
+        case TK_NUM10 : 
+            t = atoi(tokens[p].str);
+            return t;
+        default :   assert(0);
+        }
+    }
+    else if (check_parentheses(p, q) == true) {
+            /* The expression is surrounded by a matched pair of parentheses.
+             *      * If that is the case, just throw away the parentheses.
+             *           */
+            return eval(p + 1, q - 1);
+              
+    }
+    else {
+            /* We should do more things here. */
+        op = dominant_operator(p,q);
+        val1 = eval(p, op - 1);
+        val2 = eval(op + 1, q);
+        switch (tokens[op].type) {
+        case '+': return val1 + val2;
+        case '-': return val1 - val2;
+        case '*': return val1 * val2;
+        case '/': return val1 / val2;
+        default: assert(0);
+        }
+    }
+    return -1;
+}
+
+
 uint32_t expr(char *e, bool *success) {
   
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
+  else{                                                                                                                
+      *success = true;                                                                                                 
+      return eval( 0 , nr_token - 1 );                                                                                  
+  }  
+  /*//tokens匹配测试
   printf("%d\n",nr_token);
   for(int i = 0 ;i<nr_token;i++)
   {
     printf("%s\n",tokens[i].str);
-  }
+  }*/
   /* TODO: Insert cides ti evaluate the expression. */
   TODO();
-
   return 0;
 }
