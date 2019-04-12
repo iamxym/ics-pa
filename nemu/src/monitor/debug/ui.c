@@ -96,7 +96,7 @@ static int cmd_x(char *args){
         return 1;
     }
     bool success = true;
-vaddr_t addr = expr(EXPR,&success);
+    vaddr_t addr = expr(EXPR , &success);
     if (success!=true){
         printf("ERRO!!\n");
         return 1;
