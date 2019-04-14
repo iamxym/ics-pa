@@ -128,7 +128,7 @@ static int cmd_p(char *args){
     bool su = true;
     char *arg = strtok(args, " ");
    // printf("%s\n %ld\n" , arg, strlen(arg));
-    printf("%d  ",expr(arg,&su));
+    printf("%d \n ",expr(arg,&su));
     return 0;
 }
 static int cmd_help(char *args);
