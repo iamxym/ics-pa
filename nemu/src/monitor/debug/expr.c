@@ -305,6 +305,7 @@ uint32_t expr(char *e, bool *success) {
     if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT)))
         tokens[i].type = TK_NEG;
   }
+  for (int i = 0 ; i <nr_token;i++)printf("%d", tokens[i].type);
   return eval(0, nr_token - 1);
   /* TODO: Insert cides ti evaluate the expression. */
   TODO();
