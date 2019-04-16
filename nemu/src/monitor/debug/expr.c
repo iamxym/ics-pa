@@ -211,8 +211,13 @@ int dominant_operator(int p , int q){
 uint32_t eval(int p ,int  q) {
     int op,val1,val2;
     if (p > q) {
-            /* Bad expression */
+        if ( tokens[p].type == '+' )
+            return 0;
+        else if (tokens[p].type == '-')
+            return 0;
+             /* Bad expression */
           printf("Bad expressopn ! \n");
+          assert(0);
     }
     else if (p == q) {
             /* Single token.
