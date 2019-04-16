@@ -211,7 +211,7 @@ int dominant_operator(int p , int q){
 
 //递归函数
 uint32_t eval(int p ,int  q) {
-    int op;
+    int op,i;
     uint32_t val1,val2,result;
     if (p > q) {
         if ( tokens[p].type == '+' )
@@ -252,16 +252,20 @@ uint32_t eval(int p ,int  q) {
         //处理负号和指针 优先级为2 
         //第一版只处理十进制数字
         if(tokens[op].type == TK_NEG){
-            for(int i = op ; i<nr_token ; i++){
+            for( i = op ; i<nr_token ; i++){
                 if(tokens[i].type == TK_NUM10){
                     sscanf(tokens[i].str, "%x", &result);
                     //printf("%d \n",result);
-                    return -result;
+                    // return -result;
+                    break;
                 }
+
             }
+            for( ;i > 0 ;i --) result = -result;
+            return result;
         }
         else if (tokens[op].type == TK_POINT){
-            for(int i = op ; i<nr_token ; i++){
+            for( i = op ; i<nr_token ; i++){
                 if(tokens[i].type == TK_NUM10){
                     sscanf(tokens[op+1].str, "%x", &result);
                     result = vaddr_read(result, 4);
