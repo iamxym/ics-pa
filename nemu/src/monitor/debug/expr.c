@@ -10,7 +10,7 @@ enum {
   TK_NOTYPE = 256, TK_EQ =257, TK_NUM10 = 258 , TK_LEFT = 259 , TK_RIGHT = 260,
   TK_OR = 261 , TK_NOT_EQ = 262 , TK_SM_OR_EQ = 263 , TK_BG_OR_EQ = 264 , 
   TK_LSHIFT = 265 , TK_RSHIFT = 266 , TK_BG = 267 , TK_SM = 268 , 
-  TK_NEG = 269 ,TK_POINT = 270 , TK_AND = 271
+  TK_NEG = 269 ,TK_POINT = 270 , TK_AND = 271 , TK_NUM16 = 272
 
   /* TODO: Add more token types */
 
@@ -41,6 +41,7 @@ static struct rule {
     {"\\-", '-'},
     {"\\*", '*'},
     {"\\/", '/'},
+    {"0x[0-9a-fA-F]{1,8}", TK_NUM16},
     {"-?[0-9]+", TK_NUM10},
     {"\\(", TK_LEFT},
     {"\\)",TK_RIGHT},
@@ -126,6 +127,7 @@ static bool make_token(char *e) {
         case TK_LEFT :tokens[nr_token].type = TK_LEFT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         case TK_RIGHT :tokens[nr_token].type = TK_RIGHT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         case TK_NUM10 :tokens[nr_token].type = TK_NUM10 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case TK_NUM16 :tokens[nr_token].type = TK_NUM16 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         default: TODO();
         }
         nr_token+=1;
@@ -231,9 +233,13 @@ uint32_t eval(int p ,int  q) {
         
         int type = tokens[p].type;
         u_int32_t t = 0;
+        char *str;
         switch(type){
         case TK_NUM10 : 
             t = atoi(tokens[p].str);
+            return t;
+        case TK_NUM16:
+            t =  strtol(tokens[p].str,&str,16 );
             return t;
         default :   assert(0);
         }
@@ -268,10 +274,14 @@ uint32_t eval(int p ,int  q) {
             for( i = op ; i<nr_token ; i++){
                 if(tokens[i].type == TK_NUM10){
                     sscanf(tokens[op+1].str, "%x", &result);
-                    result = vaddr_read(result, 4);
-                    return result; 
+                   // result = vaddr_read(result, 4);
+                   // return result;
+                    break;
                 }
             }
+            for( ;i > 0 ;i -- ) vaddr_read(result, 4);
+            return result;
+            
         }
         
         // printf("%d", op);
@@ -313,9 +323,9 @@ uint32_t expr(char *e, bool *success) {
   // 指针和负数的区分
   // printf("%d\n",nr_token);
   for(int i = 0 ;i<nr_token;i++) {
-    if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT)))
+    if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT&&tokens[i].type!=TK_NUM16)))
         tokens[i].type = TK_POINT;
-    if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT)))
+    if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT&&tokens[i].type!=TK_NUM16)))
         tokens[i].type = TK_NEG;
   }
   for (int i = 0 ; i <nr_token;i++)printf("%d\n", tokens[i].type);
