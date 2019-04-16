@@ -166,6 +166,8 @@ int pir(int tpye){
     case '-': re = 4 ; break;
     case '*': re = 3 ; break;
     case '/': re = 3 ; break;
+    case TK_NEG :re  = 2 ; break;
+    case TK_POINT : re  = 2 ; break;
     case TK_LSHIFT : re = 5 ; break;
     case TK_RSHIFT : re = 5 ; break;
     case TK_BG : re = 6 ; break;
@@ -209,7 +211,8 @@ int dominant_operator(int p , int q){
 
 //递归函数
 uint32_t eval(int p ,int  q) {
-    int op,val1,val2;
+    int op;
+    uint32_t val1,val2,result;
     if (p > q) {
         if ( tokens[p].type == '+' )
             return 0;
@@ -245,7 +248,20 @@ uint32_t eval(int p ,int  q) {
     else {
             /* We should do more things here. */
         op = dominant_operator(p,q);
-       // printf("%d", op);
+        //处理负号和指针 优先级为2 
+        if (op == 2)
+        {
+            if(tokens[op].type == TK_NEG){
+                sscanf(tokens[op+1].str, "%x", &result);
+                return -result;
+            }
+            else if (tokens[op].type == TK_POINT){
+                sscanf(tokens[op+1].str, "%x", &result);
+                result = vaddr_read(result, 4);
+                return result;
+            }
+        }
+        // printf("%d", op);
         val1 = eval(p, op - 1);
         val2 = eval(op + 1, q);
         switch (tokens[op].type) {
