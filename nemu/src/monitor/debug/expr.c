@@ -250,15 +250,24 @@ uint32_t eval(int p ,int  q) {
         op = dominant_operator(p,q);
         printf("op位置是 %d \n",op);
         //处理负号和指针 优先级为2 
+        //第一版只处理十进制数字
         if(tokens[op].type == TK_NEG){
-            sscanf(tokens[op+1].str, "%x", &result);
-            //printf("%d \n",result);
-            return -result;
+            for(int i = op ; i<nr_token ; i++){
+                if(tokens[i].type == TK_NUM10){
+                    sscanf(tokens[i].str, "%x", &result);
+                    //printf("%d \n",result);
+                    return -result;
+                }
+            }
         }
         else if (tokens[op].type == TK_POINT){
-            sscanf(tokens[op+1].str, "%x", &result);
-            result = vaddr_read(result, 4);
-            return result;
+            for(int i = op ; i<nr_token ; i++){
+                if(tokens[i].type == TK_NUM10){
+                    sscanf(tokens[op+1].str, "%x", &result);
+                    result = vaddr_read(result, 4);
+                    return result; 
+                }
+            }
         }
         
         // printf("%d", op);
