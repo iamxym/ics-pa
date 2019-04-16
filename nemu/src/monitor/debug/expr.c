@@ -248,20 +248,18 @@ uint32_t eval(int p ,int  q) {
     else {
             /* We should do more things here. */
         op = dominant_operator(p,q);
-        printf("%d \n",op);
+        printf("op位置是 %d \n",op);
         //处理负号和指针 优先级为2 
-        if (op == 2)
-        {
-            if(tokens[op].type == TK_NEG){
-                sscanf(tokens[op+1].str, "%x", &result);
-                return -result;
-            }
-            else if (tokens[op].type == TK_POINT){
-                sscanf(tokens[op+1].str, "%x", &result);
-                result = vaddr_read(result, 4);
-                return result;
-            }
+        if(tokens[op].type == TK_NEG){
+            sscanf(tokens[op+1].str, "%x", &result);
+            return -result;
         }
+        else if (tokens[op].type == TK_POINT){
+            sscanf(tokens[op+1].str, "%x", &result);
+            result = vaddr_read(result, 4);
+            return result;
+        }
+        
         // printf("%d", op);
         val1 = eval(p, op - 1);
         val2 = eval(op + 1, q);
