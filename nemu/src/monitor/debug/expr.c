@@ -252,7 +252,7 @@ uint32_t eval(int p ,int  q) {
         //处理负号和指针 优先级为2 
         if(tokens[op].type == TK_NEG){
             sscanf(tokens[op+1].str, "%x", &result);
-            printf("---%d \n",result);
+            //printf("%d \n",result);
             return -result;
         }
         else if (tokens[op].type == TK_POINT){
