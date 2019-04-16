@@ -5,10 +5,21 @@
 #include <assert.h>
 #include <string.h>
 
+
+//生成小于n的随机数
+uint32_t choose(uint32_t n){
+    return rand()%n;
+}
+
 // this should be enough
 static char buf[65536];
 static inline void gen_rand_expr() {
   buf[0] = '\0';
+  switch(choose(3)){
+  case 0:gen_num();break;
+  case 1:gen('(');gen_rand_expr();gen(')');break;
+  default :gen_rand_expr();gen_rand_op();gen_rand_expr();break;
+  }
 }
 
 static char code_buf[65536];
@@ -21,13 +32,15 @@ static char *code_format =
 "}";
 
 
+/*
 void gen_rand_expr(){
     switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
     }
-}
+}*/
+
 
 int main(int argc, char *argv[]) {
   int seed = time(0);

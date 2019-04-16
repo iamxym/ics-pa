@@ -7,7 +7,10 @@
 #include <regex.h>
 #include "stdlib.h"
 enum {
-  TK_NOTYPE = 256, TK_EQ =257, TK_NUM10 = 258 , TK_LEFT = 259 , TK_RIGHT = 260
+  TK_NOTYPE = 256, TK_EQ =257, TK_NUM10 = 258 , TK_LEFT = 259 , TK_RIGHT = 260,
+  TK_OR = 261 , TK_NOT_EQ = 262 , TK_SM_OR_EQ = 263 , TK_BG_OR_EQ = 264 , 
+  TK_LSHIFT = 265 , TK_RSHIFT = 266 , TK_BG = 267 , TK_SM = 268 , 
+  TK_NEG = 269 ,TK_POINT = 270 , TK_AND = 271
 
   /* TODO: Add more token types */
 
@@ -21,17 +24,27 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"\\-", '-'},
-  {"\\*", '*'},
-  {"\\/", '/'},
- // {"-?[1-9]\\d*", TK_NUM10},
-  {"-?[0-9]+", TK_NUM10},
-  {"\\(", TK_LEFT},
-  {"\\)",TK_RIGHT},
-  {"==", TK_EQ}         // equal
+    //剩下的操作符
+    {"\\|\\|", TK_OR},
+    {"&&",  TK_AND},
+    {"==",  TK_EQ},       // equal
+    {"!=",  TK_NOT_EQ},       // not equal
+    {"<=",  TK_SM_OR_EQ},
+    {">=",  TK_BG_OR_EQ},
+    {"<<",  TK_LSHIFT},
+    {">>",  TK_RSHIFT},
+    {">",   TK_BG},
+    {"<",   TK_SM},
+    //base
+    {" +", TK_NOTYPE},    // spaces
+    {"\\+", '+'},         // plus
+    {"\\-", '-'},
+    {"\\*", '*'},
+    {"\\/", '/'},
+    {"-?[0-9]+", TK_NUM10},
+    {"\\(", TK_LEFT},
+    {"\\)",TK_RIGHT},
+    {"==", TK_EQ}         // equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -95,7 +108,17 @@ static bool make_token(char *e) {
         printf("%d \n",  rules[7].token_type);  
         */
         switch (rules[i].token_type) {
-        
+        case  TK_NOTYPE : break;
+        case  TK_BG :tokens[nr_token].type = TK_BG ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case  TK_EQ :tokens[nr_token].type = TK_EQ ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_OR :tokens[nr_token].type = TK_OR ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_SM :tokens[nr_token].type = TK_SM ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_AND :tokens[nr_token].type = TK_AND ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_LSHIFT : tokens[nr_token].type = TK_LSHIFT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_RSHIFT : tokens[nr_token].type = TK_RSHIFT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_BG_OR_EQ : tokens[nr_token].type = TK_BG_OR_EQ ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_SM_OR_EQ : tokens[nr_token].type = TK_SM_OR_EQ ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
+        case  TK_NOT_EQ : tokens[nr_token].type = TK_NOT_EQ ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;      
         case '+' :tokens[nr_token].type = '+' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         case '-' :tokens[nr_token].type = '-' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         case '*' :tokens[nr_token].type = '*' ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;       
@@ -143,6 +166,15 @@ int pir(int tpye){
     case '-': re = 4 ; break;
     case '*': re = 3 ; break;
     case '/': re = 3 ; break;
+    case TK_LSHIFT : re = 5 ; break;
+    case TK_RSHIFT : re = 5 ; break;
+    case TK_BG : re = 6 ; break;
+    case TK_SM : re = 6 ; break;
+    case TK_BG_OR_EQ : re = 6 ; break;
+    case TK_SM_OR_EQ : re = 6 ; break;
+    case TK_EQ : re = 7 ; break;
+    case TK_NOT_EQ : re = 7 ; break;
+    case TK_OR : re = 12 ; break;
     default : break;
     }
     return re;
@@ -216,7 +248,17 @@ uint32_t eval(int p ,int  q) {
         case '-': return val1 - val2;
         case '*': return val1 * val2;
         case '/': return val1 / val2;
+        case TK_RSHIFT : return val1 >> val2;
+        case TK_SM_OR_EQ : if (val1 <= val2) return 1; else return 0;
+        case TK_BG_OR_EQ : if (val1 >= val2) return 1; else return 0;                                
+        case TK_EQ  : if (val1 == val2) return 1; else return 0;
+        case TK_NOT_EQ : if (val1 != val2) return 1; else return 0;
+        case TK_SM : if (val1 < val2) return 1; else return 0;
+        case TK_BG : if (val1 > val2) return 1; else return 0;
+        case TK_AND: return val1 && val2;
+        case TK_OR:  return val1||val2;
         default: assert(0);
+
         }
     }
     return -1;
@@ -229,16 +271,20 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  /*
   else{                                                                                                                
       *success = true;                                                                                                 
       return eval( 0 , nr_token - 1 );                                                                                  
-  }  
-  //tokens匹配测试
-  printf("%d\n",nr_token);
-  for(int i = 0 ;i<nr_token;i++)
-  {
-    printf("%s\n",tokens[i].str);
+  } */ 
+  // 指针和负数的区分
+  // printf("%d\n",nr_token);
+  for(int i = 0 ;i<nr_token;i++) {
+    if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT)))
+        tokens[i].type = TK_POINT;
+    if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_NUM10&&tokens[i-1].type!=TK_LEFT)))
+        tokens[i].type = TK_NEG;
   }
+  return eval(0, nr_token - 1);
   /* TODO: Insert cides ti evaluate the expression. */
   TODO();
   return 0;
