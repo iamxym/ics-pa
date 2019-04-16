@@ -248,6 +248,7 @@ uint32_t eval(int p ,int  q) {
     else {
             /* We should do more things here. */
         op = dominant_operator(p,q);
+        printf("%d \n",op);
         //处理负号和指针 优先级为2 
         if (op == 2)
         {
