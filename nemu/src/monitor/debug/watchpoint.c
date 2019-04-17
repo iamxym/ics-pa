@@ -53,13 +53,13 @@ WP *new_wp(char *str , int value){
     WP *new = NULL;
     new = free_;
     free_ = free_->next;
-    printf("!!!!%d\n",value);
-    printf("!!!!%s\n",str);
+   // printf("!!!!%d\n",value);
+   // printf("!!!!%s\n",str);
     new->value = value;
-    printf("!!!!%d\n",new->value);
+   // printf("!!!!%d\n",new->value);
     strcpy(new->expr, str);
-    printf("!!!!%d\n",new->value);
-    printf("%s /n",new->expr);
+   // printf("!!!!%d\n",new->value);
+   // printf("%s /n",new->expr);
     new->next = NULL;
     new->isused = true;
     if(head == NULL) head = new;
