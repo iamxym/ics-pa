@@ -55,6 +55,7 @@ WP *new_wp(char *str , int value){
     free_ = free_->next;
     printf("!!!!%d\n",value);
     new->value = value;
+    printf("!!!!%d\n",new->value);
     strcpy(new->expr, str);
     printf("!!!!%d\n",new->value);
     printf("%s /n",new->expr);
