@@ -70,9 +70,8 @@ static int cmd_info(char *args){
         printf("edi is %x\n",cpu.edi);
         printf("---------------------------\n");
     }
-    else if(strcmp(arg,"w"))
-    {
-
+    else if(strcmp(arg,"w")){
+    
     }
    
     return 0;

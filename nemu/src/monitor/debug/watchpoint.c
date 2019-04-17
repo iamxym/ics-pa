@@ -6,6 +6,19 @@
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
 
+
+void clearWP(WP *wp);
+
+WP *getHeadWP();
+
+WP *createWP();
+
+void removeWP(int no);
+
+WP *new_wp();
+
+void free_wp(WP *wp);
+
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {

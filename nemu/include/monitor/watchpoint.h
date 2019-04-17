@@ -6,7 +6,8 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-
+  uint32_t lastVal; //最近一次的数值；
+  char *expr; //记录监视的表达式。
   /* TODO: Add more members if necessary */
 
 
