@@ -53,7 +53,7 @@ WP *new_wp(char *str , int value){
     WP *new = NULL;
     new = free_;
     free_ = free_->next;
-    printf("!!!!\n");
+    printf("!!!!%d\n",value);
     new->value = value;
     strcpy(new->expr, str);
     printf("!!!!%d\n",new->value);
