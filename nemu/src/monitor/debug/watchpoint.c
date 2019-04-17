@@ -44,7 +44,7 @@ WP *new_wp(char *str , int value){
     if(su == true){
         init_wp_pool();
         su = false;
-        printf("!!!!!!!!!!!!!\n");
+        //printf("!!!!!!!!!!!!!\n");
     }
     if(free_ == NULL){
         printf("Erro!free is null.\n");
@@ -53,6 +53,7 @@ WP *new_wp(char *str , int value){
     WP *new = NULL;
     new = free_;
     free_ = free_->next;
+    printf("!!!!\n");
     new->value = value;
     strcpy(new->expr, str);
     printf("%s /n",new->expr);
