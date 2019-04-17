@@ -79,23 +79,23 @@ static int cmd_info(char *args){
 static int cmd_x(char *args){
     //获取内存起始地址和扫描长度。
     if(args == NULL){
-        printf("too few arguments! \n");                                                                       
+        printf("too few parameter! \n");                                                                       
         return 1;
     }
     
     char *arg = strtok(args," ");
     if(arg == NULL){
-        printf("too few arguments! \n");
+        printf("too few parameter! \n");
         return 1;
     }
     int  n = atoi(arg);
     char *EXPR = strtok(NULL," ");
     if(EXPR == NULL){
-        printf("too few arguments! \n");
+        printf("too few parameter! \n");
         return 1;
     }
     if(strtok(NULL," ")!=NULL){
-        printf("too many arguments! \n");
+        printf("too many parameter! \n");
         return 1;
     }
     bool success = true;
@@ -130,6 +130,28 @@ static int cmd_p(char *args){
     printf("%d \n ",expr(arg,&su));
     return 0;
 }
+
+static int cmd_w(char *args){
+    char *arg = strtok(args," ");
+    if(arg == NULL){
+        printf("too few parameter!\n ");
+        return 1;
+    }
+    else{
+        bool su;
+        uint32_t res = expr(arg,&su);
+        printf("%s \n",arg);
+        if(su){
+            new_wp(arg,res);
+            printf("add a watchpoint %s   0x%x  \n!",arg,res);
+        }
+        else{
+            printf("error!\n");
+        }
+        return 0;
+    }
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -143,9 +165,9 @@ static struct {
     {"si"," Single-step execution",cmd_si},
     {"info","Print program status",cmd_info},
     {"x","Scanning memory",cmd_x},
-    {"p","表达式求值",cmd_p}
+    {"p","表达式求值",cmd_p},
   /* TODO: Add more commands */
-
+    {"w","设置监视点。",cmd_w}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))

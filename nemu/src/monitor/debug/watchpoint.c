@@ -24,7 +24,7 @@ void removeWP(int no);
 WP *new_wp();
 
 //（私有）释放一个监视点
-void free_wp(WP *wp);
+void free_wp(int no);
 
 void init_wp_pool() {
   int i;
@@ -60,6 +60,45 @@ WP *new_wp(char *str , int value){
     return new;
 }
 
+//根据给出的编号释放对应的监视点
+void free_wp(int no){
+    WP *p = head;
+    if(head == NULL){
+        printf("监视点列表为空。 \n");
+        assert(0);
+    }
+    else if(p->NO == no){
+        head = head->next;
+        p->value = 0;
+        p->isused = false;
 
-
+        p->next = free_;
+        free_ = p;
+        printf("已经删除第%d个监视点。\n", no);
+        free(p);
+        return;
+    }
+    else{
+        WP *q = head;
+        p = p ->next;
+        while(p!=NULL){
+            if (p->NO == no){
+                q->next = p->next;
+                p->value = 0;
+                p->isused = false;
+                p->next = free_;
+                free_ = p;
+                printf("已经删除第%d个监视点。\n", no);
+                free(p);free(q);
+                return;
+            }
+            else{
+                p = p -> next;
+                q = q -> next;
+        }
+    }
+    printf("不存在第%d个监视点。\n",no);
+    return;
+    }
+}
 
