@@ -141,7 +141,7 @@ static int cmd_w(char *args){
         
         bool su;
         uint32_t res = expr(arg,&su);
-        printf("%s %d  %d \n",arg,res,su);
+      //  printf("%s %d  %d \n",arg,res,su);
         if(su){
             new_wp(arg,res);
             printf("add a watchpoint %s   0x%x  \n!",arg,res);
