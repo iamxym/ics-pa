@@ -56,6 +56,7 @@ WP *new_wp(char *str , int value){
     printf("!!!!\n");
     new->value = value;
     strcpy(new->expr, str);
+    printf("!!!!%d\n",new->value);
     printf("%s /n",new->expr);
     new->next = NULL;
     new->isused = true;
