@@ -6,7 +6,7 @@
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
-
+bool su = true;
 //清空某监视点的下一项指针
 void clearWP(WP *wp);
 
@@ -41,8 +41,11 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 //需要存入表达式和结果。
 WP *new_wp(char *str , int value){
-    if(free_ == NULL){
+    if(su == true){
         init_wp_pool();
+        su = false;
+    }
+    if(free_ == NULL){
         printf("Erro!free is null.\n");
         assert(0);
     }
