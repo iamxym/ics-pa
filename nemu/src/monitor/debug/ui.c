@@ -138,6 +138,7 @@ static int cmd_w(char *args){
         return 1;
     }
     else{
+        
         bool su;
         uint32_t res = expr(arg,&su);
         printf("%s %d  %d \n",arg,res,su);

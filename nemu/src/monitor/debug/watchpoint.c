@@ -42,6 +42,7 @@ void init_wp_pool() {
 //需要存入表达式和结果。
 WP *new_wp(char *str , int value){
     if(free_ == NULL){
+        init_wp_pool();
         printf("Erro!free is null.\n");
         assert(0);
     }
