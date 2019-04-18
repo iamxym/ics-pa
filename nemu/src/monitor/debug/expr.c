@@ -10,7 +10,7 @@ enum {
   TK_NOTYPE = 256, TK_EQ =257, TK_NUM10 = 258 , TK_LEFT = 259 , TK_RIGHT = 260,
   TK_OR = 261 , TK_NOT_EQ = 262 , TK_SM_OR_EQ = 263 , TK_BG_OR_EQ = 264 , 
   TK_LSHIFT = 265 , TK_RSHIFT = 266 , TK_BG = 267 , TK_SM = 268 , 
-  TK_NEG = 269 ,TK_POINT = 270 , TK_AND = 271 , TK_NUM16 = 272
+  TK_NEG = 269 ,TK_POINT = 270 , TK_AND = 271 , TK_NUM16 = 272 , TK_REG = 273
 
   /* TODO: Add more token types */
 
@@ -45,7 +45,8 @@ static struct rule {
     {"-?[0-9]+", TK_NUM10},
     {"\\(", TK_LEFT},
     {"\\)",TK_RIGHT},
-    {"==", TK_EQ}         // equal
+    {"==", TK_EQ} ,        // equal
+    {"\\$e(ax|cx|dx|bx|sp|bp|si|di|ip)",TK_REG} //reg 
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -131,6 +132,7 @@ static bool make_token(char *e) {
         case TK_RIGHT :tokens[nr_token].type = TK_RIGHT ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         case TK_NUM10 :tokens[nr_token].type = TK_NUM10 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         case TK_NUM16 :tokens[nr_token].type = TK_NUM16 ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
+        case TK_REG :tokens[nr_token].type = TK_REG ; strncpy(tokens[nr_token].str,e + position - substr_len , substr_len);tokens[nr_token].str[substr_len] = '\0';break;
         default: TODO();
         }
         nr_token+=1;
@@ -244,6 +246,16 @@ uint32_t eval(int p ,int  q) {
         case TK_NUM16:
             t =  strtol(tokens[p].str,&str,16 );
             return t;
+        case TK_REG :
+            if(strcmp(tokens[p].str,"eax") == 0) return cpu.eax;
+            else if(strcmp(tokens[p].str ,"ecx") == 0) return cpu.ecx;
+            else if(strcmp(tokens[p].str ,"edx") == 0) return cpu.edx;
+            else if(strcmp(tokens[p].str ,"ebx") == 0) return cpu.ebx;
+            else if(strcmp(tokens[p].str ,"esp") == 0) return cpu.esp;
+            else if(strcmp(tokens[p].str ,"ebp") == 0) return cpu.ebp;
+            else if(strcmp(tokens[p].str ,"esi") == 0) return cpu.esi;
+            else if(strcmp(tokens[p].str ,"edi") == 0) return cpu.edi;
+            else if(strcmp(tokens[p].str ,"eip") == 0) return cpu.eip;
         default :   assert(0);
         }
     }
