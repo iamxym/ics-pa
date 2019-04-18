@@ -247,16 +247,16 @@ uint32_t eval(int p ,int  q) {
             t =  strtol(tokens[p].str,&str,16 );
             return t;
         case TK_REG :
-            printf("%s \n", tokens[p].str);
-            if(strcmp(tokens[p].str,"eax") == 0) return cpu.eax;
-            else if(strcmp(tokens[p].str ,"ecx") == 0) return cpu.ecx;
-            else if(strcmp(tokens[p].str ,"edx") == 0) return cpu.edx;
-            else if(strcmp(tokens[p].str ,"ebx") == 0) return cpu.ebx;
-            else if(strcmp(tokens[p].str ,"esp") == 0) return cpu.esp;
-            else if(strcmp(tokens[p].str ,"ebp") == 0) return cpu.ebp;
-            else if(strcmp(tokens[p].str ,"esi") == 0) return cpu.esi;
-            else if(strcmp(tokens[p].str ,"edi") == 0) return cpu.edi;
-            else if(strcmp(tokens[p].str ,"eip") == 0) return cpu.eip;
+           // printf("%s \n", tokens[p].str);
+            if(strcmp(tokens[p].str,"$eax") == 0) return cpu.eax;
+            else if(strcmp(tokens[p].str ,"$ecx") == 0) return cpu.ecx;
+            else if(strcmp(tokens[p].str ,"$edx") == 0) return cpu.edx;
+            else if(strcmp(tokens[p].str ,"$ebx") == 0) return cpu.ebx;
+            else if(strcmp(tokens[p].str ,"$esp") == 0) return cpu.esp;
+            else if(strcmp(tokens[p].str ,"$ebp") == 0) return cpu.ebp;
+            else if(strcmp(tokens[p].str ,"$esi") == 0) return cpu.esi;
+            else if(strcmp(tokens[p].str ,"$edi") == 0) return cpu.edi;
+            else if(strcmp(tokens[p].str ,"$eip") == 0) return cpu.eip;
             else  assert(0);
         default :   assert(0);
         }
