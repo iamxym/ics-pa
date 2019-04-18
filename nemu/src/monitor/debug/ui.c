@@ -144,7 +144,7 @@ static int cmd_w(char *args){
       //  printf("%s %d  %d \n",arg,res,su);
         if(su){
             new_wp(arg,res);
-            printf("add a watchpoint %s   0x%x  \n!",arg,res);
+            printf("add a watchpoint %s   0x%8x  \n!",arg,res);
         }
         else{
             printf("error!\n");
