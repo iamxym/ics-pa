@@ -162,7 +162,7 @@ static int cmd_d(char *args){
     }
     else{
         int no = atoi(arg);
-        if(no>0&&no<=32){
+        if(no>=0&&no<=32){
             free_wp(no);
             return 0;
         }else{
