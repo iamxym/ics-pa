@@ -33,4 +33,8 @@ void removeWP(int no);
 WP *new_wp();
 
 //（私有）释放一个监视点
+void free_wp(int no);
+
+// 打印监视点
+void print_wp();
 #endif

@@ -26,6 +26,9 @@ WP *new_wp();
 //（私有）释放一个监视点
 void free_wp(int no);
 
+// 打印监视点
+void print_wp();
+
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
@@ -112,3 +115,19 @@ void free_wp(int no){
     }
 }
 
+void print_wp(){
+    WP *p = head;
+    if(p ==NULL){
+        printf("监视点为空！\n");
+        return;
+    }
+    else{
+        while(p!=NULL){
+
+            printf("%d   %s 0x%08x\n",p->NO , p->expr, p->value);
+            p=p->next;
+        }
+        return;
+    }
+    return;
+}

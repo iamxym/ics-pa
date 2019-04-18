@@ -71,7 +71,7 @@ static int cmd_info(char *args){
         printf("---------------------------\n");
     }
     else if(strcmp(arg,"w")){
-    
+        print_wp();
     }
    
     return 0;
@@ -153,6 +153,25 @@ static int cmd_w(char *args){
     }
 }
 
+//删除监视点
+static int cmd_d(char *args){
+    char *arg = strtok(args," ");
+    if(arg == NULL){
+        printf("too few parameter!\n ");
+        return 1;
+    }
+    else{
+        int no = atoi(arg);
+        if(no>0&&no<=32){
+            free_wp(no);
+            return 0;
+        }else{
+            printf("输入错误！\n");
+            return 1;
+        }
+    }
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -168,9 +187,9 @@ static struct {
     {"x","Scanning memory",cmd_x},
     {"p","表达式求值",cmd_p},
   /* TODO: Add more commands */
-    {"w","设置监视点。",cmd_w}
+    {"w","设置监视点。",cmd_w},
+    {"d","删除监视点。",cmd_d}
 };
-
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 
 static int cmd_help(char *args) {
