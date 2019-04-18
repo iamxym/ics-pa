@@ -88,7 +88,7 @@ void free_wp(int no){
         p->next = free_;
         free_ = p;
         printf("已经删除第%d个监视点。\n", no);
-        free(p);
+       // free(p);
         return;
     }
     else{
@@ -102,7 +102,7 @@ void free_wp(int no){
                 p->next = free_;
                 free_ = p;
                 printf("已经删除第%d个监视点。\n", no);
-                free(p);free(q);
+         //       free(p);free(q);
                 return;
             }
             else{
