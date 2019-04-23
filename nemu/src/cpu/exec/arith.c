@@ -26,13 +26,9 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-	//rtl_sub(&id_dest->val,&id_dest->val,&id_src->val);
-	//operand_write(id_dest,&id_dest->val);
   rtl_sub(&t2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &t3, &id_dest->val, &t2);
   operand_write(id_dest, &t2);
-	//dest = dest - src 
-
   rtl_update_ZFSF(&t2, id_dest->width);
 
   rtl_setrelop(RELOP_LTU, &t0, &id_dest->val, &t2);
@@ -44,8 +40,6 @@ make_EHelper(sub) {
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-	//Log("Success Sub! %x-%x=%x",id_dest->val+id_src->val,id_src->val,id_dest->val);	
-
   print_asm_template2(sub);
 }
 
