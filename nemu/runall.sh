@@ -18,11 +18,11 @@ else
   exit
 fi
 
-files=`ls $AM_HOME/tests/cputest/build/*x86-nemu.bin`
+files=`ls $AM_HOME/tests/cputest/build/*-x86-nemu.bin`
 ori_log="build/nemu-log.txt"
 
 for file in $files; do
-  base=`basename $file | sed -e 's/-x86-nemu.bin/'`
+  base=`basename $file | sed -e 's/-x86-nemu.bin//'`
   printf "[%14s] " $base
   logfile=$base-log.txt
   $nemu -b -l $ori_log $file &> $logfile
