@@ -1,4 +1,0 @@
-NAME = pingpong
-SRCS = tests/pingpong.c
-LIBS += klib
-include /home/ics/ics-pa/nexus-am/Makefile.app
