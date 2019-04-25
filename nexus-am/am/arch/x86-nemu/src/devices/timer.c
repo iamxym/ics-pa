@@ -5,6 +5,7 @@
 #define RTC_PORT 0x48
 
 uint32_t boot_time;
+
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
@@ -28,5 +29,7 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 void timer_init() {
-    boot_time = inl(RTC_PORT);
+ //   gettimeofday(&boot_time, NULL);
+
+   boot_time = inl(RTC_PORT);
 }
