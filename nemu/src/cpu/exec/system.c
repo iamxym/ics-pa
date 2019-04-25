@@ -91,9 +91,7 @@ make_EHelper(in) {
 		case 1: rtl_li(&t0, pio_read_b(id_src->val)); break; 
 	}
 	operand_write(id_dest,&t0);
-
-  print_asm_template2(in);
-
+    print_asm_template2(in);
 #if defined(DIFF_TEST)
   difftest_skip_ref();
 #endif
