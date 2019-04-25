@@ -1,6 +1,12 @@
 #include <am.h>
 #include <amdev.h>
 #include <klib.h>
+#include <x86.h>
+
+
+#define RTC_PORT 0x48
+
+uint32_t boot_time;
 
 static inline size_t no_read(uintptr_t reg, void *buf, size_t size) {
   assert(0);
@@ -25,6 +31,11 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size);
 size_t video_read(uintptr_t reg, void *buf, size_t size);
 size_t video_write(uintptr_t reg, void *buf, size_t size);
 size_t input_read(uintptr_t reg, void *buf, size_t size);
+
+
+unsigned long _uptime() {
+    return inl(RTC_PORT) - boot_time;     
+}
 
 
 static _Device n86_dev[] = {
