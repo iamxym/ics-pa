@@ -1,4 +1,4 @@
-NAME = access-cache
-SRCS = tests/access-cache.c
+NAME = access
+SRCS = tests/access.c
 LIBS += klib
 include /home/ics/ics-pa/nexus-am/Makefile.app
