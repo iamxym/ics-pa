@@ -5,6 +5,7 @@
 int main(){
   _RTCReg rtc;
   _ioe_init();
+  printf("------------\n");
   int sec = 1;
   while (1) {
     while(uptime() < 1000 * sec) ;
