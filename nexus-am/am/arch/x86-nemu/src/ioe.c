@@ -32,10 +32,10 @@ size_t video_read(uintptr_t reg, void *buf, size_t size);
 size_t video_write(uintptr_t reg, void *buf, size_t size);
 size_t input_read(uintptr_t reg, void *buf, size_t size);
 
-
+/*
 unsigned long _uptime() {
     return 0;     
-}
+}*/
 
 
 

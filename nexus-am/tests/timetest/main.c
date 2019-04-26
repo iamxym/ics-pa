@@ -4,7 +4,7 @@
 
 int main(){
   _RTCReg rtc;
- printf("%d", _ioe_init());
+  _ioe_init();
   printf("--------\n");
   printf("%d",uptime());
   int sec = 1;
