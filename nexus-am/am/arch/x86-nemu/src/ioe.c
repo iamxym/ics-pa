@@ -4,9 +4,6 @@
 #include <x86.h>
 
 
-//#define RTC_PORT 0x48
-
-//uint32_t boot_time;
 
 static inline size_t no_read(uintptr_t reg, void *buf, size_t size) {
   assert(0);
