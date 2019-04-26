@@ -22,7 +22,7 @@ void vga_init();
 void timer_init();
 
 int _ioe_init() {
-  vga_init();
+//  vga_init();
   timer_init();
   return 0;
 }
