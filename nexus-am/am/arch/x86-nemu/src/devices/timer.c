@@ -29,7 +29,5 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 void timer_init() {
- //   gettimeofday(&boot_time, NULL);
-
    boot_time = inl(RTC_PORT);
 }
