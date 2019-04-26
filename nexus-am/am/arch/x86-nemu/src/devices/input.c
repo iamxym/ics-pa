@@ -13,7 +13,7 @@ size_t input_read(uintptr_t reg, void *buf, size_t size) {
       _KbdReg *kbd = (_KbdReg *)buf;
       int key = inl(I8042_DATA_PORT);
       kbd->keydown = ((key & KEYDOWN_MASK) == KEYDOWN_MASK) ? 1:0 ;
-      kbd->keycode = _KEY_NONE;
+      kbd->keycode = key;
       return sizeof(_KbdReg);
     }
   }
