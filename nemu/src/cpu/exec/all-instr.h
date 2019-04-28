@@ -56,6 +56,8 @@ make_EHelper(jcc);
 /*system.c*/
 make_EHelper(in);
 make_EHelper(out);
+make_EHelper(lidt);
+
 
 /*special.c*/
 make_EHelper(nop);
