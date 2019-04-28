@@ -6,23 +6,30 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-    rtl_push(&id_dest->val);
-    print_asm_template1(push);
+	rtl_push(&id_dest->val);
+	//Log("Successful push!");
+  //TODO();
+
+  print_asm_template1(push);
 }
 
 make_EHelper(pop) {
 	rtl_pop(&id_src->val);
 	operand_write(id_dest,&id_src->val);
-    print_asm_template1(pop);
+	//Log("Successful pop!");
+  //TODO();
+
+  print_asm_template1(pop);
 }
 
 make_EHelper(pusha) {
-	rtl_li(&t0, cpu.esp);	
+	rtlreg_t temp = 0;
+	rtl_lm(&temp,&cpu.esp,4);	
 	rtl_push(&cpu.eax);
 	rtl_push(&cpu.ecx);
 	rtl_push(&cpu.edx);
 	rtl_push(&cpu.ebx);
-	rtl_push(&t0);
+	rtl_push(&temp);
 	rtl_push(&cpu.ebp);
 	rtl_push(&cpu.esi);
 	rtl_push(&cpu.edi);

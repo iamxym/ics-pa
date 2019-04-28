@@ -29,13 +29,16 @@ make_EHelper(call) {
 	// Don't forget to add push eip
   rtl_push(eip);
   rtl_j(decoding.jmp_eip);
+	//*eip = decoding.jmp_eip;
+
   print_asm("call %x", decoding.jmp_eip);
 }
 
 make_EHelper(ret) {
 	rtl_pop(&decoding.jmp_eip);
 	rtl_j(decoding.jmp_eip);
-    print_asm("ret");
+
+  print_asm("ret");
 }
 
 make_EHelper(call_rm) {

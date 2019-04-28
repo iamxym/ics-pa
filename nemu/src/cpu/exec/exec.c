@@ -13,9 +13,6 @@ typedef struct {
 #define EX(ex)             EXW(ex, 0)
 #define EMPTY              EX(inv)
 
-#define IRQ_TIMER 32
-void raise_intr(uint8_t NO, vaddr_t ret_addr);
-
 static inline void set_width(int width) {
   if (width == 0) {
     width = decoding.is_operand_size_16 ? 2 : 4;
@@ -69,7 +66,7 @@ make_group(gp5,
 
   /* 0x0f 0x01*/
 make_group(gp7,
-    EMPTY, EMPTY, EMPTY, EX(lidt),
+    EMPTY, EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
@@ -126,7 +123,7 @@ opcode_entry opcode_table [512] = {
 	/* 0xc0 */	IDEXW(gp2_Ib2E, gp2, 1), IDEX(gp2_Ib2E, gp2), IDEXW(I,ret,2), EX(ret),
 	/* 0xc4 */	EMPTY, EMPTY, IDEXW(mov_I2E, mov, 1), IDEX(mov_I2E, mov),
 	/* 0xc8 */	EMPTY, EX(leave), IDEXW(I,ret,2), EX(ret),
-	/* 0xcc */	EX(int), IDEXW(I,int,1), EX(int), EX(iret),
+	/* 0xcc */	EMPTY, EMPTY, EMPTY, EMPTY,
 	/* 0xd0 */	IDEXW(gp2_1_E, gp2, 1), IDEX(gp2_1_E, gp2), IDEXW(gp2_cl2E, gp2, 1), IDEX(gp2_cl2E, gp2),
 	/* 0xd4 */	EMPTY, EMPTY, EX(nemu_trap), EMPTY,
 	/* 0xd8 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -150,7 +147,7 @@ opcode_entry opcode_table [512] = {
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x20 */	IDEXW(mov_G2E, mov_cr2r, 4), EMPTY, IDEXW(mov_E2G, mov_r2cr, 4), EMPTY,
+  /* 0x20 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x28 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -238,7 +235,6 @@ void exec_wrapper(bool print_flag) {
   decoding.seq_eip = ori_eip;
   exec_real(&decoding.seq_eip);
 
-
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - ori_eip;
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
@@ -251,17 +247,8 @@ void exec_wrapper(bool print_flag) {
 
   update_eip();
 
-
 #if defined(DIFF_TEST)
   void difftest_step(uint32_t);
   difftest_step(ori_eip);
 #endif
-	
-	// check hardware intr
-	if(cpu.INTR & cpu.eflags.IF) {
-		//Log("cpu.INTR=%d IF=%d\n", cpu.INTR, cpu.eflags.IF);
-		cpu.INTR = false;
-		raise_intr(IRQ_TIMER, cpu.eip);
-		update_eip();
-	}
 }
