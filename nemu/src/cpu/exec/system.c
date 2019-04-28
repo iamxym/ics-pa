@@ -3,6 +3,8 @@
 
 void difftest_skip_ref();
 void difftest_skip_dut();
+void raise_intr(uint8_t NO, vaddr_t ret_addr);
+
 
 make_EHelper(lidt) {
  // TODO();
@@ -32,9 +34,15 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  TODO();
+ // TODO();
 
-  print_asm("int %s", id_dest->str);
+    switch(decoding.opcode){
+    case 0xcc : raise_intr((uint8_t)0x3,decoding.seq_eip);  break;
+    case 0xcd : raise_intr(id_dest->val, decoding.seq_eip); break;
+    case 0xce : raise_intr((uint8_t)0x4, decoding.seq_eip); break;
+    default : raise_intr((uint8_t)id_dest->val, decoding.seq_eip);
+    }
+    print_asm("int %s", id_dest->str);
 
 #if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)
   difftest_skip_dut();
