@@ -23,7 +23,8 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-	rtlreg_t temp = 0;
+/*
+    rtlreg_t temp = 0;
 	rtl_lm(&temp,&cpu.esp,4);	
 	rtl_push(&cpu.eax);
 	rtl_push(&cpu.ecx);
@@ -33,13 +34,15 @@ make_EHelper(pusha) {
 	rtl_push(&cpu.ebp);
 	rtl_push(&cpu.esi);
 	rtl_push(&cpu.edi);
-  //TODO();
+  */
+    TODO();
 
   print_asm("pusha");
 }
 
 make_EHelper(popa) {
-	rtlreg_t throwaway = 0;
+	/*
+    rtlreg_t throwaway = 0;
 	rtl_pop(&cpu.edi);
 	rtl_pop(&cpu.esi);
 	rtl_pop(&cpu.ebp);
@@ -48,7 +51,8 @@ make_EHelper(popa) {
 	rtl_pop(&cpu.edx);
 	rtl_pop(&cpu.ecx);
 	rtl_pop(&cpu.eax);
-  //TODO();
+  */
+    TODO();
 
   print_asm("popa");
 }
