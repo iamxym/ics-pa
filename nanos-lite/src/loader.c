@@ -15,27 +15,11 @@ off_t fs_lseek(int fd, off_t offset, int whence);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   //TODO();
-    
- int fd = fs_open(filename, 0, 0);
- uint32_t filesz = fs_filesz(fd);
- int size_left = filesz;
- void* va = (void*)DEFAULT_ENTRY;
- while(size_left > 0) {
-     void* pa = new_page(1);
-     _map(&(pcb->as), va, pa, 1);
-     va += PGSIZE;
-     int size_to_read = PGSIZE;
-     if(size_left < PGSIZE) size_to_read = size_left;
-     fs_read(fd, pa, size_to_read);
-     size_left -= PGSIZE;
- }
- 
- pcb->max_brk = DEFAULT_ENTRY + filesz;
- 
- //Log("before loader return");
- 
- //  fs_close(fd);return DEFAULT_ENTRY;
-  return DEFAULT_ENTRY;
+
+    int fd = fs_open(filename, 0, 0);
+    fs_read(fd, (void*)DEFAULT_ENTRY, fs_filesz(fd)); 
+    fs_close(fd);
+return DEFAULT_ENTRY;
 }
 
 
