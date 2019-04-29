@@ -63,8 +63,6 @@ make_EHelper(iret);
 
 /*special.c*/
 make_EHelper(nop);
-
 make_EHelper(operand_size);
-
 make_EHelper(inv);
 make_EHelper(nemu_trap);
