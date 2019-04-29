@@ -19,6 +19,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
         assert(0);
                 }
     vaddr_t aim = (gate_des.val1 & 0x0000ffff) + (gate_des.val2 & 0xffff0000);
+    printf("!!!!!!\n");
     rtl_j(aim);
     // TODO();
 }
