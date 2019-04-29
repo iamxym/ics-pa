@@ -12,9 +12,9 @@ struct _Context {
  // uintptr_t esi, ebx, eax, eip, edx, err, eflags, ecx, cs, esp, edi, ebp;
   struct _Protect *prot;
   //first is push.
-  uintptr_t esi, ebx, eax, edx,ecx,esp,ebp;
+  uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
   int       irq;
-  uintptr_t eip,err,eflags,cs;
+  uintptr_t err, eip, cs, eflags;
 };
 
 #define GPR1 eax
