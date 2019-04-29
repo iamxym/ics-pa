@@ -190,7 +190,7 @@ opcode_entry opcode_table [512] = {
   /* 0xc0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xc4 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xc8 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xcc */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0xcc */	EX(int), IDEXW(I,int,1), EX(int), EX(iret),
   /* 0xd0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xd4 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xd8 */	EMPTY, EMPTY, EMPTY, EMPTY,
