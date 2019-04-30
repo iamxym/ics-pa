@@ -102,16 +102,6 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
 		for(int i = 0; i < len; ++i) _putc(buff[i]);
         return len;
    }   
-/*
- if(file_table[fd].write == NULL){
-		if(file_table[fd].open_offset + len > file_table[fd].size)
-			len = file_table[fd].size - file_table[fd].open_offset;
- 		ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-	}
-	else file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
-
-	file_table[fd].open_offset += len;
-*/  
 return len;
 }
 
