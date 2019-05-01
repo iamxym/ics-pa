@@ -43,10 +43,10 @@ static intptr_t brk = (intptr_t)&_end;
 void *_sbrk(intptr_t increment){
     intptr_t o_brk = brk; 
     intptr_t n_brk = o_brk + increment;
-    intptr_t sys = _syscall_(SYS_brk,n_brk,0,0,);
+    intptr_t sys = _syscall_(SYS_brk,n_brk,0,0);
     if(sys == 0){
         brk = n_brk;
-        return o_brk;
+        return  (void*)o_brk;
     }
     return (void *)-1;
 }
