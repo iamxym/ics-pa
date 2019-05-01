@@ -2,6 +2,7 @@
 #include "syscall.h"
 #include "proc.h"
 
+extern char _end;
 
 typedef size_t ssize_t;
 typedef size_t off_t;
@@ -25,6 +26,7 @@ _Context* do_syscall(_Context *c) {
   case SYS_yield : _yield();c->GPRx = 0 ;break;
   case SYS_exit : _halt(a[2]);break;
   case SYS_write: c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);break;
+  case SYS_brk : _heap.end = (void *)a[1]; c->GPRx = 0 ;break;
   default: panic("Unhandled syscall ID = %d", a[0]);
   }
 

@@ -38,8 +38,17 @@ int _write(int fd, void *buf, size_t count){
     return (int)ret;
 }
 
+extern char _end;
+static intptr_t brk = (intptr_t)&_end;
 void *_sbrk(intptr_t increment){
-  return (void *)-1;
+    intptr_t o_brk = brk; 
+    intptr_t n_brk = o_brk + increment;
+    intptr_t sys = _syscall_(SYS_brk,n_brk,0,0,);
+    if(sys == 0){
+        brk = n_brk;
+        return o_brk;
+    }
+    return (void *)-1;
 }
 
 int _read(int fd, void *buf, size_t count) {
