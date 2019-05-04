@@ -60,11 +60,10 @@ void init_fs() {
 
 
 extern int fs_open(const char *pathname, int flags, int mode){
-	//Log("open file: %s", pathname);
 	for(int i = 0; i < NR_FILES; ++i){
 		if(strcmp(pathname, file_table[i].name) == 0){
-      file_table[i].open_offset = 0;
-			return i;	//use index as file descriptor
+            file_table[i].open_offset = 0;
+			return i;
 		}
 	}
 	panic("No such file!");
@@ -76,9 +75,8 @@ extern size_t fs_filesz(int fd){
 }
 
 extern ssize_t fs_read(int fd, void *buf, size_t len){
-  //assert(file_table[fd].open_offset + len <= file_table[fd].size);  
 	int ret = 0;
-	//Log("fs_read: fd = %d, name = %s, offset = %d, len = %d", fd, file_table[fd].name, file_table[fd].open_offset, len);
+	Log("fs_read: fd = %d, name = %s, offset = %d, len = %d", fd, file_table[fd].name, file_table[fd].open_offset, len);
 	if(fd != FD_EVENTS && file_table[fd].open_offset + len > file_table[fd].size){
 		len = file_table[fd].size - file_table[fd].open_offset;
 	}
