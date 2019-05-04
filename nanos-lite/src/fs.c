@@ -85,8 +85,8 @@ extern ssize_t fs_read(int fd, void *buf, size_t len){
   	ret = ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 	}
 	else ret = file_table[fd].read(buf, file_table[fd].open_offset, len);
-  file_table[fd].open_offset += ret;
-  return ret;
+    file_table[fd].open_offset += ret;
+    return ret;
 }
 
 extern ssize_t fs_close(int fd){
