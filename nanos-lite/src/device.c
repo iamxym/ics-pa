@@ -1,8 +1,14 @@
 #include "common.h"
 #include <amdev.h>
-
+#include <klib.h>
 size_t serial_write(const void *buf, size_t offset, size_t len) {
-  return 0;
+  
+    Log("Used serial_write!");
+    char *n_buf = (char*) buf;
+    for(int i = 0 ; i < len ; i++){
+       _putc(n_buf[i]); 
+    }
+    return len;
 }
 
 #define NAME(key) \
