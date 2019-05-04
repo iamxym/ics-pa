@@ -91,7 +91,8 @@ extern ssize_t fs_read(int fd, void *buf, size_t len){
 }
 
 extern ssize_t fs_close(int fd){
-  return 0;
+    Log("close file!");
+    return 0;
 }
 
 extern ssize_t fs_write(int fd, const void* buf, size_t len){
