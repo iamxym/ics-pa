@@ -32,11 +32,11 @@ _Context* do_syscall(_Context *c) {
   case SYS_read: 	Log("Used sys_read! len = %d", a[3]);
 				 c->GPRx = (ssize_t)fs_read((int)a[1], (void*)a[2], (size_t)a[3]);break;
   case SYS_open: 	Log("Used sys_open!");
-   			 	c->GPRx = (ssize_t)fs_open((const char*)a[1], (int)a[2], (int)a[3]);break;
+   			 	 c->GPRx = (ssize_t)fs_open((const char*)a[1], (int)a[2], (int)a[3]);break;
   case SYS_close:   Log("Used sys_close!");
-    			c->GPRx = (ssize_t)fs_close((int)a[1]);break;
+    		 	 c->GPRx = (ssize_t)fs_close((int)a[1]);break;
   case SYS_lseek:  	Log("Usde sys_lseek!");
-     			c->GPRx = (off_t)fs_lseek((int)a[1], (off_t)a[2], (int)a[3]);break;	
+     			 c->GPRx = (off_t)fs_lseek((int)a[1], (off_t)a[2], (int)a[3]);break;	
   case SYS_execve: Log("Usde SYS_execve, name = %s", (char*)a[1]);
  					 naive_uload(NULL, (char*)a[1]);c->GPRx = 0;break;  
 default: panic("Unhandled syscall ID = %d", a[0]);
