@@ -14,6 +14,7 @@ ssize_t fs_write(int fd, const void* buf, size_t len);
 
 void naive_uload(PCB *pcb, const char *filename);
 
+int mm_brk(uintptr_t new_brk);
 
 _Context* do_syscall(_Context *c) {
   	uintptr_t a[4];
@@ -28,7 +29,7 @@ _Context* do_syscall(_Context *c) {
   case SYS_write:	Log("used sys_write!");
 				 c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);break;
   case SYS_brk :	Log("Used sys_brk!");
-				 _heap.end = (void *)a[1]; c->GPRx = 0 ;break;
+				 _heap.end = (void *)a[1]; mm_brk(a[1]);c->GPRx = 0 ;break;
   case SYS_read: 	Log("Used sys_read! len = %d", a[3]);
 				 c->GPRx = (ssize_t)fs_read((int)a[1], (void*)a[2], (size_t)a[3]);break;
   case SYS_open: 	Log("Used sys_open!");
