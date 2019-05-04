@@ -108,7 +108,8 @@ extern ssize_t fs_write(int fd, const void* buf, size_t len){
     }
     else file_table[fd].write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
     file_table[fd].open_offset += len;   
-return len;
+    Log("write success!");
+    return len;
 }
 
 extern off_t fs_lseek(int fd, off_t offset, int whence){
