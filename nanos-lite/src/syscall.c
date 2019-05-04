@@ -31,7 +31,7 @@ _Context* do_syscall(_Context *c) {
    			 	 c->GPRx = (ssize_t)fs_open((const char*)a[1], (int)a[2], (int)a[3]);break;
   case SYS_read: 	Log("Used sys_read! len = %d", a[3]);
 				 c->GPRx = (ssize_t)fs_read((int)a[1], (void*)a[2], (size_t)a[3]);break;
-  case SYS_write :	Log("used sys_write!");
+  case SYS_write :	//Log("used sys_write!");
 				 c->GPRx = (ssize_t)fs_write((int)a[1], (const void*)a[2], (size_t)a[3]);break;
   case SYS_kill : Log("!!!!!");break;
   case SYS_close:   Log("Used sys_close!");
