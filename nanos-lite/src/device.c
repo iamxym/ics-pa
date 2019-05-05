@@ -27,7 +27,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     char temp[256];
     //判断是键盘事件还是时间事件
     if(key != 0){
-		if((key & 0x8000) != 0){
+	Log("key!!!!!!");
+        if((key & 0x8000) != 0){
 			sprintf(temp, "kd %s\n", keyname[key ^ 0x8000]);
 			strncpy(buf, temp, len);
 		}
@@ -37,6 +38,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 		}
     }
     else{
+        Log("time !!!!");
 		uint32_t time_now = uptime();
 		sprintf(temp, "t %d\n", time_now);
 		strncpy(buf, temp, len);
