@@ -29,18 +29,18 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     if(key != 0){
 	Log("key!!!!!!");
         if((key & 0x8000) != 0){
-			sprintf(temp, "kd %s\n", keyname[key ^ 0x8000]);
+			sprintf(temp, " %s\n", keyname[key ^ 0x8000]);
 			strncpy(buf, temp, len);
 		}
 		else {
-			sprintf(temp, "ku %s\n", keyname[key]);
+			sprintf(temp, " %s\n", keyname[key]);
 			strncpy(buf, temp, len);
 		}
     }
     else{
         Log("time !!!!");
-		uint32_t time_now = uptime();
-		sprintf(temp, "t %d\n", time_now);
+		uint32_t n_time = uptime();
+		sprintf(temp, "t %d\n", n_time);
 		strncpy(buf, temp, len);
     }
 	if(strlen(temp) < len) len = strlen(temp);
