@@ -36,11 +36,11 @@ _Context* do_syscall(_Context *c) {
   case SYS_kill : Log("!!!!!");break;
   case SYS_close:   Log("Used sys_close!");
     		 	 c->GPRx = (ssize_t)fs_close((int)a[1]);break;
-  case SYS_lseek:  	Log("Usde sys_lseek!");
+  case SYS_lseek:  	Log("Used sys_lseek!");
      			 c->GPRx = (off_t)fs_lseek((int)a[1], (off_t)a[2], (int)a[3]);break;	
   case SYS_brk :	Log("Used sys_brk end=%d!",&_end);
 				 _heap.end = (void *)a[1]; mm_brk(a[1]);c->GPRx = 0 ;break;
-  case SYS_execve: Log("Usde SYS_execve, name = %s", (char*)a[1]);
+  case SYS_execve: Log("Used SYS_execve, name = %s", (char*)a[1]);
  					 naive_uload(NULL, (char*)a[1]);c->GPRx = 0;break;  
 default: panic("Unhandled syscall ID = %d", a[0]);
   }
