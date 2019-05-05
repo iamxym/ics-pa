@@ -23,7 +23,26 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  return 0;
+    int key = read_key();
+    char temp[256];
+    //判断是键盘事件还是时间事件
+    if(key != 0){
+		if((key & 0x8000) != 0){
+			sprintf(temp, "kd %s\n", keyname[key ^ 0x8000]);
+			strncpy(buf, temp, len);
+		}
+		else {
+			sprintf(temp, "ku %s\n", keyname[key]);
+			strncpy(buf, temp, len);
+		}
+    }
+    else{
+		uint32_t time_now = uptime();
+		sprintf(temp, "t %d\n", time_now);
+		strncpy(buf, temp, len);
+    }
+	if(strlen(temp) < len) len = strlen(temp);
+  return len;
 }
 
 static char dispinfo[128] __attribute__((used));
